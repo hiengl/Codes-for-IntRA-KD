@@ -19,8 +19,8 @@ class VOCAugDataSet(Dataset):
                     self.img_list.append(line.strip().split(" ")[0].replace('/Camera_5/', '/Camera 5/').replace('/Camera_6/', '/Camera 6/'))
                     self.label_list.append(line.strip().split(" ")[1].replace('/Camera_5/', '/Camera 5/').replace('/Camera_6/', '/Camera 6/'))
 
-        self.img_path = dataset_path
-        self.gt_path = dataset_path
+        self.img_path = ''
+        self.gt_path = ''
         self.transform_0 = transform[0]
         self.transform_1 = transform[1]
         self.transform_2 = transform[2]
