@@ -2,18 +2,22 @@ import os
 import numpy as np
 import cv2
 import torch
-from torch.utils.data import Dataset
+from torch.utils.data import DataSet
 
 
 class VOCAugDataSet(Dataset):
-    def __init__(self, dataset_path='/home/houyuenan/ApolloScapes/list', data_list='train', transform=None):
+    def __init__(self, dataset_path='../list', data_list='train', transform=None):
 
         with open(os.path.join(dataset_path, data_list + '.txt')) as f:
             self.img_list = []
             self.label_list = []
             for line in f:
-                self.img_list.append(line.strip().split(" ")[0])
-                self.label_list.append(line.strip().split(" ")[1])
+#                 self.img_list.append(line.strip().split(" ")[0])
+#                 self.label_list.append(line.strip().split(" ")[1])
+                if 'ColorImage_road02' in line:
+                    line = line.replace('/home/houyuenan/ApolloScapes', '../../lane_marking_examples').replace('ColorImage_road02', 'road02').replace('Labels_road02', 'road02')
+                    self.img_list.append(line.strip().split(" ")[0].replace('/Camera_5/', '/Camera 5/').replace('/Camera_6/', '/Camera 6/'))
+                    self.label_list.append(line.strip().split(" ")[1].replace('/Camera_5/', '/Camera 5/').replace('/Camera_6/', '/Camera 6/'))
 
         self.img_path = dataset_path
         self.gt_path = dataset_path
